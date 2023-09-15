@@ -141,9 +141,10 @@ input {
     font-size: 40pt;
 }
 
-.fin-form {
+#fin-form {
     display: flex;
     align-self: center;
+    justify-content: center;
     flex-direction: column;
     margin-top: 4vh;
 }
@@ -151,6 +152,7 @@ input {
 #bet-input, #fin-answer {
     display: flex;
     justify-content: center;
+    align-self: center;
     margin: 1vh;
     padding: 1vh;
 }
