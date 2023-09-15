@@ -128,6 +128,39 @@ input {
     text-align: center;
 }
 
+#final {
+    align-self: center;
+    width: 70vw;
+}
+
+.final-question {
+    display: flex;
+    align-items: center;
+    width: 70vw;
+    height: 30vh;
+    font-size: 40pt;
+}
+
+.fin-form {
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    margin-top: 4vh;
+}
+
+#bet-input, #fin-answer {
+    display: flex;
+    justify-content: center;
+    margin: 1vh;
+    padding: 1vh;
+}
+
+.fin-botton {
+    align-self: center;
+    width: 10vw;
+    margin-top: 2vh;
+}
+
 footer {
     display: flex;
     justify-content: center;
