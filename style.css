@@ -14,7 +14,14 @@ h1 {
     display: flex;
     justify-content: center;
     margin-top: 2vh;
-    font-size: 30pt;
+    font-size: 25pt;
+
+}
+
+#final-title {
+    animation-name: title;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
 }
 
 h2 {
@@ -138,7 +145,7 @@ input {
     align-items: center;
     width: 70vw;
     height: 30vh;
-    font-size: 40pt;
+    font-size: 30pt;
 }
 
 #fin-form {
@@ -161,6 +168,7 @@ input {
     align-self: center;
     width: 10vw;
     margin-top: 2vh;
+    margin-bottom: 2vh;
 }
 
 footer {
@@ -174,4 +182,30 @@ footer {
     margin-top: auto;
     margin-bottom: 2vh;;
     border-radius: 5px;
+}
+
+#fin-body{
+    animation-name:back;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes title {
+    0%{color: rgb(255, 0, 0);}
+    16.6%{color: rgb(255, 255, 0);}
+    33.3%{color: rgb(0, 255, 0);}
+    50%{color:rgb(0, 255, 255);}
+    66.6%{color: rgb(0, 0, 255);}
+    83.3%{color:rgb(255, 0,255);}
+    100%{color: rgb(255, 0, 0);}
+}
+
+@keyframes back {
+    0%{background-color: rgb(0, 255, 255);}
+    16.6%{background-color: rgb(0, 0, 255);}
+    33.3%{background-color: rgb(255, 0,255);}
+    50%{background-color: rgb(255, 0, 0);}
+    66.6%{background-color: rgb(255, 255, 0);}
+    83.3%{background-color: rgb(0, 255, 0);}
+    100%{background-color: rgb(0, 255, 255);}
 }
