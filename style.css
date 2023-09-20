@@ -20,7 +20,7 @@ h1 {
 
 #final-title {
     animation-name: title;
-    animation-duration: 10s;
+    animation-duration: 30s;
     animation-iteration-count: infinite;
 }
 
@@ -186,7 +186,7 @@ footer {
 
 #fin-body{
     animation-name:back;
-    animation-duration: 10s;
+    animation-duration: 30s;
     animation-iteration-count: infinite;
 }
 
@@ -201,11 +201,11 @@ footer {
 }
 
 @keyframes back {
-    0%{background-color: rgb(0, 255, 255);}
-    16.6%{background-color: rgb(0, 0, 255);}
-    33.3%{background-color: rgb(255, 0,255);}
-    50%{background-color: rgb(255, 0, 0);}
-    66.6%{background-color: rgb(255, 255, 0);}
-    83.3%{background-color: rgb(0, 255, 0);}
-    100%{background-color: rgb(0, 255, 255);}
+    0%{background-color: rgb(0, 127, 127);}
+    16.6%{background-color: rgb(0, 0, 127);}
+    33.3%{background-color: rgb(127, 0,127);}
+    50%{background-color: rgb(127, 0, 0);}
+    66.6%{background-color: rgb(127, 127, 0);}
+    83.3%{background-color: rgb(0, 127, 0);}
+    100%{background-color: rgb(0, 127, 127);}
 }
