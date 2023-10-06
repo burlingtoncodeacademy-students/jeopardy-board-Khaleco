@@ -10,21 +10,37 @@
   <body id="fin-body">
     <h1 id="final-title">Final Jeopardy</h1>
 
-    <h2 id="final-title">Player Turn</h2>
+    <h2 id="final-title">Player 1's Turn</h2>
 
     <div class="board">
       <div class="category">
         <p id="final">Final Question</p>
-        <a href="" class="final-q">Final Question</a>
+        <a href="" id="final-q">Final Question</a>
       </div>
+    </div>
+
+    <div id="modalBack">
+      <div id="modal">
+        <h3 id="message"></h3>
+      </div>
+    </div>
+    
+
+    <div id="score">
+      <article class="score">Player 1 Score:
+        <article id="player1score">0</article>
+      </article>
+      <article class="score">Player 2 Score: 
+        <article id="player2score">0</article>
+      </article>
     </div>
 
     <form id="fin-form">
       <input type="text" id="bet-input" placeholder="Point Bet Amount">
-      <input type="text" id="fin-answer" placeholder="Final Answer">
+      <input type="password" id="fin-answer" placeholder="Final Answer">
     </form>
 
-    <button form="fin-form" disabled class="fin-botton" type:="submit">Bet</button>
+    <button id="bet" form="fin-form" disabled class="fin-botton" type:="submit">Bet</button>
 
     <footer>Footer Site Information</footer>
 

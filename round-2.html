@@ -11,73 +11,84 @@
   <body>
     <h1>Second Round</h1>
 
-    <h2>Player Turn</h2>
+    <h2>Player 1's Turn</h2>
     <div class="board">
       <div class="category" id="category1">
         <p>Category</p>
-        <a href="" class="question" id="5">200</a>
-        <a href="" class="question" id="6">400</a>
-        <a href="" class="question" id="7">600</a>
-        <a href="" class="question" id="8">800</a>
-        <a href="" class="question" id="9">1000</a>
+        <button href="" class="question" id="5">200</button>
+        <button href="" class="question" id="6">400</button>
+        <button href="" class="question" id="7">600</button>
+        <button href="" class="question" id="8">800</button>
+        <button href="" class="question" id="9">1000</button>
       </div>
       <div class="category" id="category2">
         <p>Category</p>
-        <a href="" class="question" id="5">200</a>
-        <a href="" class="question" id="6">400</a>
-        <a href="" class="question" id="7">600</a>
-        <a href="" class="question" id="8">800</a>
-        <a href="" class="question" id="9">1000</a>
+        <button href="" class="question" id="5">200</button>
+        <button href="" class="question" id="6">400</button>
+        <button href="" class="question" id="7">600</button>
+        <button href="" class="question" id="8">800</button>
+        <button href="" class="question" id="9">1000</button>
       </div>
       <div class="category" id="category3">
         <p>Category</p>
-        <a href="" class="question" id="5">200</a>
-        <a href="" class="question" id="6">400</a>
-        <a href="" class="question" id="7">600</a>
-        <a href="" class="question" id="8">800</a>
-        <a href="" class="question" id="9">1000</a>
+        <button href="" class="question" id="5">200</button>
+        <button href="" class="question" id="6">400</button>
+        <button href="" class="question" id="7">600</button>
+        <button href="" class="question" id="8">800</button>
+        <button href="" class="question" id="9">1000</button>
       </div>
       <div class="category" id="category4">
         <p>Category</p>
-        <a href="" class="question" id="5">200</a>
-        <a href="" class="question" id="6">400</a>
-        <a href="" class="question" id="7">600</a>
-        <a href="" class="question" id="8">800</a>
-        <a href="" class="question" id="9">1000</a>
+        <button href="" class="question" id="5">200</button>
+        <button href="" class="question" id="6">400</button>
+        <button href="" class="question" id="7">600</button>
+        <button href="" class="question" id="8">800</button>
+        <button href="" class="question" id="9">1000</button>
       </div>
       <div class="category" id="category5">
         <p>Category</p>
-        <a href="" class="question" id="5">200</a>
-        <a href="" class="question" id="6">400</a>
-        <a href="" class="question" id="7">600</a>
-        <a href="" class="question" id="8">800</a>
-        <a href="" class="question" id="9">1000</a>
+        <button href="" class="question" id="5">200</button>
+        <button href="" class="question" id="6">400</button>
+        <button href="" class="question" id="7">600</button>
+        <button href="" class="question" id="8">800</button>
+        <button href="" class="question" id="9">1000</button>
       </div>
       <div class="category" id="category6">
         <p>Category</p>
-        <a href="" class="question" id="5">200</a>
-        <a href="" class="question" id="6">400</a>
-        <a href="" class="question" id="7">600</a>
-        <a href="" class="question" id="8">800</a>
-        <a href="" class="question" id="9">1000</a>
+        <button href="" class="question" id="5">200</button>
+        <button href="" class="question" id="6">400</button>
+        <button href="" class="question" id="7">600</button>
+        <button href="" class="question" id="8">800</button>
+        <button href="" class="question" id="9">1000</button>
       </div>
 
 
     </div>
 
-    <form id="guess-container">
-      <input type="text" id="guess" placeholder="User Guess...">
-      <button form="guess-container" type="submit" class="guess">Guess</button>
-      <button form="guess-container" type="submit" class="guess">Pass</button>
-    </form>
-
-    <div id="score">
-      <article class="score" >Player 1 Score: 0</article>
-      <article class="score" >Player 2 Score: 0</article>
+    <div id="modalBack">
+      
+      <div id="modal">
+        <h2>Player 1's Turn</h2>
+        <p id="modalQuestion"></p>
+        <form id="guess-container">
+          <input type="text" id="guess" placeholder="What is...">
+          <button form="guess-container" type="submit" class="guess">Guess</button>
+          <button form="guess-container" type="submit" class="guess">Pass</button>
+        </form>
+      </div>
     </div>
 
-    <div id="next-round">
-      <a href="./final-jeopardy.html">Next Round</a>
+    <div id="score">
+      <article class="score">Player 1 Score:
+        <article id="player1score">0</article>
+      </article>
+      <article class="score">Player 2 Score: 
+        <article id="player2score">0</article>
+      </article>
+    </div>
+
+    <div id="nextDiv">
+      <a href="./final-jeopardy.html" id="next-round">Next Round</a>
     </div>
 
     <footer>Footer Site Information</footer>

@@ -22,15 +22,51 @@ try{
     categoryLable5 = category5.firstElementChild;
     categoryLable6 = category6.firstElementChild;
 } catch(err) {
-    console.log(err);
+    console.log("No categorys" + err);
 }
 const categoryLables = [categoryLable1, categoryLable2, categoryLable3, categoryLable4, categoryLable5, categoryLable6];
 
 
 const questions = Array.from(document.getElementsByClassName("question"));
 
-const finalQuestion = document.getElementById("final")
+const finalQuestion = document.getElementById("final-q")
 
+const modalBack = document.getElementById("modalBack");
+const modalQuestion = document.getElementById("modalQuestion");
+
+const userInput = document.getElementById("guessInput");
+const guess = document.getElementById("guess");
+const pass = document.getElementById("pass");
+
+const playerTurn = Array.from(document.getElementsByTagName("h2"));
+
+var currentQuestionIndex;
+var currentQuestion;
+var guessPass;
+
+const player1Score = document.getElementById("player1score");
+const player2Score = document.getElementById("player2score");
+var urlParams = new URLSearchParams(window.location.search);
+
+const betInput = document.getElementById("bet-input");
+const finalAnswer = document.getElementById("fin-answer");
+const bet = document.getElementById("bet");
+
+const message = document.getElementById("message");
+
+var player1final = true;
+var player2final = true;
+
+// gets info from URLparams and sets the appropriate value
+if (urlParams.get("turn")){
+    player1Score.textContent = urlParams.get("player1");
+    player2Score.textContent = urlParams.get("player2");
+    playerTurn.forEach(element => {
+        element.textContent = urlParams.get("turn")
+    })
+}
+
+const nextRound = document.getElementById("next-round");
 // creates category variable and grabs each cotegory at a step of 10 (10 questions per category)
 const categorys = [];
 for (let i = 0; i < 60; i += 10) {
@@ -44,33 +80,195 @@ try {
         categoryLables[i].textContent = categorys[i];
     }
 } catch(err) {
-    console.log(err);
+    console.log("No categorys" + err);
 }
+
 
 // returns the question for the clicked choice
-function dataSiftQuestion(question, cat) {
-    let i = (Number(question) + (10 * Number(cat)))
-        return(placeholderQuestions[i].question)
+function dataSiftQuestion(index) {
+        return(placeholderQuestions[index].question)
 }
 // returns the answer for the clicked choice
-function dataSiftAnswer(question, cat) {
-    let i = (Number(question) + (10 * Number(cat)))
-        return(placeholderQuestions[i].answer)
+function dataSiftAnswer(index) {
+
+        return(placeholderQuestions[index].answer)
 }
 
-// crates an array of all questions and disables their defualt
+// crates an array of all questions, disables their defualt, displays a modal with the question and form.
 try {
     questions.forEach(question => {
         question.addEventListener("click", evt => {
             evt.preventDefault();
-            console.log(question.parentElement.firstElementChild.textContent + " " + question.id)
-            // ! question.parentElement.firstElementChild will give category name + question.id gives id(1,2,3,4,5) (category + id)
-            console.log(dataSiftQuestion(question.id, categoryLables.indexOf(question.parentElement.firstElementChild)))
-            console.log(dataSiftAnswer(question.id, categoryLables.indexOf(question.parentElement.firstElementChild)))
-    });
+            guessPass = 0;
+            currentQuestionIndex = (Number(question.id) + (10 * Number(categoryLables.indexOf(question.parentElement.firstElementChild))));
+            currentQuestion = question;
+            modalBack.style.display = "flex";
+            modalQuestion.textContent = dataSiftQuestion(currentQuestionIndex);
+            question.disabled = true;
+            question.style.backgroundColor = "#303030";
+            question.style.color = "#303030"
+        });
     })
 } catch(err) {
-    console.log(err)
+    console.log("No questions" + err)
 }
 
+function changeTurn() {
+    playerTurn.forEach(turn => {
+        if(turn.textContent == "Player 1's Turn") {
+            turn.textContent = "Player 2's Turn";
+        } else if (turn.textContent == "Player 2's Turn") {
+            turn.textContent = "Player 1's Turn"
+        }
+    })
+}
 
+function modalNone () {
+    modalBack.style.display = "none";
+}
+
+try {
+    // read userInput and compare aganst answer if true award current player points if false revome points and pass turn.
+    guess.addEventListener("click", evt => {
+        evt.preventDefault();
+        if (userInput.value.toLowerCase() == dataSiftAnswer(currentQuestionIndex).toLowerCase()) {
+            if (playerTurn[0].textContent == "Player 1's Turn"){
+                player1Score.textContent = Number(player1Score.textContent) + Number(currentQuestion.textContent);
+            } else if (playerTurn[0].textContent == "Player 2's Turn") {
+                player2Score.textContent = Number(player2Score.textContent) + Number(currentQuestion.textContent);
+            }
+            userInput.value = "";
+            modalBack.style.display = "none"
+        } else {
+            if (playerTurn[0].textContent == "Player 1's Turn"){
+                player1Score.textContent = Number(player1Score.textContent) - Number(currentQuestion.textContent);
+            } else if (playerTurn[0].textContent == "Player 2's Turn") {
+                player2Score.textContent = Number(player2Score.textContent) - Number(currentQuestion.textContent);
+            }
+            changeTurn();
+            guessPass += 1;
+        }
+        if (guessPass == 2) {
+            modalQuestion.textContent = dataSiftAnswer(currentQuestionIndex);
+            setTimeout(modalNone, 5000);
+        } 
+        userInput.value = "";
+    })
+
+    // pass player turn if both pass give answer and skip question
+    pass.addEventListener("click", evt => {
+        evt.preventDefault();
+        if (guessPass < 1) {
+            changeTurn();
+            guessPass += 1;
+        } else {
+            modalQuestion.textContent = dataSiftAnswer(currentQuestionIndex);
+            setTimeout(modalNone, 5000)
+        }
+    })
+} catch(err) {
+    console.log("No form " + err)
+}
+
+// ! question.parentElement.firstElementChild will give category name + question.id gives id(1,2,3,4,5) (category + id)
+
+function gameOver() {
+    modalBack.style.display = "flex";
+    message.textContent = `The Answer was: ${placeholderQuestions[60].question} Final Scores:\nPlayer 1: ${player1Score.textContent}\nPlayer 2: ${player2Score.textContent}`;
+}
+
+try{
+    guessPass = 0;
+    if (Number(player1Score.textContent) <=0 && Number(player2Score.textContent) <= 0) {
+        player1final = false;
+        player2final = false;
+        modalBack.style.display = "flex";
+        message.textContent = "Both players can't compete in the final round.";
+        setTimeout(modalNone, 5000);
+        setTimeout(gameOver, 6000);
+    } else if (Number(player1Score.textContent) <= 0) {
+        player1final = false;
+        modalBack.style.display = "flex";
+        message.textContent = "Player 1 can't compete this round";
+        setTimeout(modalNone, 5000);
+        if (playerTurn[0].textContent == "Player 1's Turn") {
+            changeTurn();
+        }
+    } else if (Number(player2Score.textContent) <= 0) {
+        player2final = false;
+        modalBack.style.display = "flex";
+        message.textContent = "Player 2 can't compete this round";
+        setTimeout(modalNone, 5000);
+        if (playerTurn[0].textContent == "Player 2's Turn") {
+            changeTurn();
+        }
+    }
+    finalQuestion.textContent = placeholderQuestions[60].question;
+    finalAnswer.addEventListener("keyup", evt => {
+        if(betInput.value && finalAnswer.value) {
+            bet.disabled = false;
+        }
+    })
+    betInput.addEventListener("keyup", evt => {
+        if(betInput.value && finalAnswer.value) {
+            bet.disabled = false;
+        }
+    })
+    bet.addEventListener("click", evt => {
+        evt.preventDefault();
+        
+        if (playerTurn[0].textContent == "Player 1's Turn" && player1final == true) {
+            if (Number(betInput.value) > Number(player1Score.textContent) || Number(betInput.value) <= 0) {
+                // invalid bet amount
+                modalBack.style.display = "flex";
+                message.textContent = "Invalid bet amount";
+                setTimeout(modalNone, 2000);
+            } else if (finalAnswer.value.toLowerCase() == dataSiftAnswer(60).toLowerCase()) {
+                player1Score.textContent += Number(betInput.value);
+            } else {
+                player1Score.textContent -= Number(betInput.value);
+            }
+            if (player2final == true && guessPass < 1){
+                changeTurn();
+                guessPass++;
+            } else {
+                gameOver();
+            }
+        } else if (playerTurn[0].textContent == "Player 2's Turn" && player2final == true) {
+            if (Number(betInput.value) > Number(player2Score.textContent) || Number(betInput.value) <= 0) {
+                // invalid bet amount
+                modalBack.style.display = "flex";
+                message.textContent = "Invalid bet amount";
+                setTimeout(modalNone, 2000);
+            } else if (finalAnswer.value.toLowerCase() == dataSiftAnswer(60).toLowerCase()) {
+                player2Score.textContent += Number(betInput.value);
+            } else {
+                player2Score.textContent -= Number(betInput.value);
+            }
+            if (player1final == true && guessPass < 1) {
+                changeTurn();
+                guessPass++;
+            } else {
+                gameOver();
+            }
+        }
+    })
+} catch(err) {
+    console.log("Not the final jeopardy " + err);
+}
+// TODO FinalJeopardy constenstants with less than $1 can't participate
+
+
+try {
+    nextRound.addEventListener("click", evt => {
+        const scores = {
+            player1: player1Score.textContent,
+            player2: player2Score.textContent,
+            turn: playerTurn[0].textContent
+        }
+        nextRound.href += ("?" + new URLSearchParams(scores));
+        console.log(nextRound)
+    })
+} catch(err) {
+    console.log("no next round button " + err)
+}

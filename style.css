@@ -87,6 +87,23 @@ a {
     border-radius: 5px;
 }
 
+.question {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    background-color: #818181;
+    color: aliceblue;
+    font-size: 3vw;
+    width: 15vw;
+    border: 2px solid black;
+    margin: .125em;
+    border-radius: 5px;
+}
+
+.question:hover {
+    background-color: #979797;
+}
+
 #guess-container {
     margin-top: 4vh;
     align-self: center;
@@ -94,6 +111,36 @@ a {
     justify-content: space-between;
     flex-wrap: wrap;
     width: 30vw;
+}
+
+#modalBack{
+    display: none;
+    z-index: 1;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: 0,0,0;
+    background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+}
+
+#modal {
+    margin-bottom: 7em;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    background-color: #b3b2b2;
+    border: 2px solid black;
+    border-radius: 5px;
+    flex-direction: column;
+    padding: 20px;
+}
+
+#modalQuestion {
+    display: flex;
+    width: 100%;
+    align-self: center;
+    padding: 5px;
 }
 
 .guess {
@@ -125,9 +172,11 @@ input {
     padding: 1vw;
     border: 2px solid black;
     border-radius: 5px;
+    display: flex;
+    flex-direction: row;
 }
 
-#next-round {
+#nextDiv {
     display: flex;
     justify-content: end;
     margin-right: 5vw;
@@ -140,12 +189,13 @@ input {
     width: 70vw;
 }
 
-.final-q {
+#final-q {
     display: flex;
     align-items: center;
     width: 70vw;
     height: 30vh;
     font-size: 30pt;
+    text-align: center;
 }
 
 #fin-form {
