@@ -174,10 +174,12 @@ try {
 
 function gameOver() {
     modalBack.style.display = "flex";
-    message.textContent = `The Answer was: ${placeholderQuestions[60].question} Final Scores:\nPlayer 1: ${player1Score.textContent}\nPlayer 2: ${player2Score.textContent}`;
+    modal.style.width = "50%";
+    message.textContent = `The Answer was: ${placeholderQuestions[60].answer}, Final Scores: Player 1: ${player1Score.textContent} Player 2: ${player2Score.textContent}`;
 }
 
 try{
+    bet.textContent = "";
     guessPass = 0;
     if (Number(player1Score.textContent) <=0 && Number(player2Score.textContent) <= 0) {
         player1final = false;
@@ -185,7 +187,7 @@ try{
         modalBack.style.display = "flex";
         message.textContent = "Both players can't compete in the final round.";
         setTimeout(modalNone, 5000);
-        setTimeout(gameOver, 6000);
+        setTimeout(gameOver, 5001);
     } else if (Number(player1Score.textContent) <= 0) {
         player1final = false;
         modalBack.style.display = "flex";
