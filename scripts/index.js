@@ -26,7 +26,6 @@ try{
 }
 const categoryLables = [categoryLable1, categoryLable2, categoryLable3, categoryLable4, categoryLable5, categoryLable6];
 
-
 const questions = Array.from(document.getElementsByClassName("question"));
 
 const finalQuestion = document.getElementById("final-q")
@@ -57,6 +56,10 @@ const message = document.getElementById("message");
 var player1final = true;
 var player2final = true;
 
+const nextRound = document.getElementById("next-round");
+const round = document.getElementsByClassName("round");
+var questionsClicked = 0;
+
 // gets info from URLparams and sets the appropriate value
 if (urlParams.get("turn")){
     player1Score.textContent = urlParams.get("player1");
@@ -66,7 +69,6 @@ if (urlParams.get("turn")){
     })
 }
 
-const nextRound = document.getElementById("next-round");
 // creates category variable and grabs each cotegory at a step of 10 (10 questions per category)
 const categorys = [];
 for (let i = 0; i < 60; i += 10) {
@@ -107,6 +109,10 @@ try {
             question.disabled = true;
             question.style.backgroundColor = "#303030";
             question.style.color = "#303030"
+            guess.style.display = "flex";
+            pass.style.display = "flex";
+            userInput.style.display = "flex";
+            questionsClicked++;
         });
     })
 } catch(err) {
@@ -127,6 +133,18 @@ function modalNone () {
     modalBack.style.display = "none";
 }
 
+function nextTrue(){
+    if (round[0].textContent == "Round One") {
+        if (Number(player1Score.textContent) >= 15000 || Number(player2Score.textContent) >= 15000 || questionsClicked == 30) {
+            nextRound.style.display = "flex";
+        }    
+    } else if (round[0].textContent == "Second Round") {
+        if (Number(player1Score.textContent) >= 30000 || Number(player2Score.textContent) >= 30000 || questionsClicked == 30) {
+            nextRound.style.display = "flex";
+        }    
+    }
+}
+
 try {
     // read userInput and compare aganst answer if true award current player points if false revome points and pass turn.
     guess.addEventListener("click", evt => {
@@ -139,6 +157,7 @@ try {
             }
             userInput.value = "";
             modalBack.style.display = "none"
+            nextTrue();
         } else {
             if (playerTurn[0].textContent == "Player 1's Turn"){
                 player1Score.textContent = Number(player1Score.textContent) - Number(currentQuestion.textContent);
@@ -150,7 +169,11 @@ try {
         }
         if (guessPass == 2) {
             modalQuestion.textContent = dataSiftAnswer(currentQuestionIndex);
+            guess.style.display = "none";
+            pass.style.display = "none";
+            userInput.style.display = "none";
             setTimeout(modalNone, 5000);
+            nextTrue();
         } 
         userInput.value = "";
     })
@@ -163,6 +186,10 @@ try {
             guessPass += 1;
         } else {
             modalQuestion.textContent = dataSiftAnswer(currentQuestionIndex);
+            guess.style.display = "none";
+            pass.style.display = "none";
+            userInput.style.display = "none";
+            nextTrue();
             setTimeout(modalNone, 5000)
         }
     })
@@ -179,7 +206,7 @@ function gameOver() {
 }
 
 try{
-    bet.textContent = "";
+    bet.textContent = "Bet";
     guessPass = 0;
     if (Number(player1Score.textContent) <=0 && Number(player2Score.textContent) <= 0) {
         player1final = false;
