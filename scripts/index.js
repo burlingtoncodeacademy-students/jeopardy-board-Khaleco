@@ -45,8 +45,18 @@ var guessPass;
 
 const player1Score = document.getElementById("player1score");
 const player2Score = document.getElementById("player2score");
+const player1Name = document.querySelector("#player1");
+const player2Name = document.querySelector("#player2");
 var urlParams = new URLSearchParams(window.location.search);
 
+var turnSwitch = 0;
+if (urlParams.get("player1")){
+    player1Score.textContent = urlParams.get("player1");
+    player2Score.textContent = urlParams.get("player2");
+    turnSwitch = urlParams.get("turn");
+    player1Name.textContent = urlParams.get("player1Name");
+    player2Name.textContent = urlParams.get("player2Name");
+}
 const betInput = document.getElementById("bet-input");
 const finalAnswer = document.getElementById("fin-answer");
 const bet = document.getElementById("bet");
@@ -61,13 +71,6 @@ const round = document.getElementsByClassName("round");
 var questionsClicked = 0;
 
 // gets info from URLparams and sets the appropriate value
-if (urlParams.get("turn")){
-    player1Score.textContent = urlParams.get("player1");
-    player2Score.textContent = urlParams.get("player2");
-    playerTurn.forEach(element => {
-        element.textContent = urlParams.get("turn")
-    })
-}
 
 // creates category variable and grabs each cotegory at a step of 10 (10 questions per category)
 const categorys = [];
@@ -119,14 +122,31 @@ try {
     console.log("No questions" + err)
 }
 
-function changeTurn() {
+try {
     playerTurn.forEach(turn => {
-        if(turn.textContent == "Player 1's Turn") {
-            turn.textContent = "Player 2's Turn";
-        } else if (turn.textContent == "Player 2's Turn") {
-            turn.textContent = "Player 1's Turn"
+        if(turnSwitch) {
+            turn.textContent = `${player2Name.textContent.split(" ")[0]}'s Turn`;
+        } else {
+            turn.textContent = `${player1Name.textContent.split(" ")[0]}'s Turn`;
         }
     })
+} catch (error) {
+    console.log(error);
+}
+
+function changeTurn() {
+    playerTurn.forEach(turn => {
+        if(!turnSwitch) {
+            turn.textContent = `${player2Name.textContent.split(" ")[0]}'s Turn`;
+        } else {
+            turn.textContent = `${player1Name.textContent.split(" ")[0]}'s Turn`;
+        }
+    })
+    if (turnSwitch) {
+        turnSwitch = 0;
+    } else {
+        turnSwitch = 1;
+    }
 }
 
 function modalNone () {
@@ -150,18 +170,18 @@ try {
     guess.addEventListener("click", evt => {
         evt.preventDefault();
         if (userInput.value.toLowerCase() == dataSiftAnswer(currentQuestionIndex).toLowerCase()) {
-            if (playerTurn[0].textContent == "Player 1's Turn"){
+            if (!turnSwitch){
                 player1Score.textContent = Number(player1Score.textContent) + Number(currentQuestion.textContent);
-            } else if (playerTurn[0].textContent == "Player 2's Turn") {
+            } else {
                 player2Score.textContent = Number(player2Score.textContent) + Number(currentQuestion.textContent);
             }
             userInput.value = "";
             modalBack.style.display = "none"
             nextTrue();
         } else {
-            if (playerTurn[0].textContent == "Player 1's Turn"){
+            if (!turnSwitch){
                 player1Score.textContent = Number(player1Score.textContent) - Number(currentQuestion.textContent);
-            } else if (playerTurn[0].textContent == "Player 2's Turn") {
+            } else {
                 player2Score.textContent = Number(player2Score.textContent) - Number(currentQuestion.textContent);
             }
             changeTurn();
@@ -190,6 +210,7 @@ try {
             pass.style.display = "none";
             userInput.style.display = "none";
             nextTrue();
+            changeTurn();
             setTimeout(modalNone, 5000)
         }
     })
@@ -220,7 +241,7 @@ try{
         modalBack.style.display = "flex";
         message.textContent = "Player 1 can't compete this round";
         setTimeout(modalNone, 5000);
-        if (playerTurn[0].textContent == "Player 1's Turn") {
+        if (!turnSwitch) {
             changeTurn();
         }
     } else if (Number(player2Score.textContent) <= 0) {
@@ -228,7 +249,7 @@ try{
         modalBack.style.display = "flex";
         message.textContent = "Player 2 can't compete this round";
         setTimeout(modalNone, 5000);
-        if (playerTurn[0].textContent == "Player 2's Turn") {
+        if (turnSwitch) {
             changeTurn();
         }
     }
@@ -246,7 +267,7 @@ try{
     bet.addEventListener("click", evt => {
         evt.preventDefault();
         
-        if (playerTurn[0].textContent == "Player 1's Turn" && player1final == true) {
+        if (!turnSwitch && player1final == true) {
             if (Number(betInput.value) > Number(player1Score.textContent) || Number(betInput.value) <= 0) {
                 // invalid bet amount
                 modalBack.style.display = "flex";
@@ -263,7 +284,7 @@ try{
             } else {
                 gameOver();
             }
-        } else if (playerTurn[0].textContent == "Player 2's Turn" && player2final == true) {
+        } else if (turnSwitch && player2final == true) {
             if (Number(betInput.value) > Number(player2Score.textContent) || Number(betInput.value) <= 0) {
                 // invalid bet amount
                 modalBack.style.display = "flex";
@@ -287,13 +308,40 @@ try{
 }
 // TODO FinalJeopardy constenstants with less than $1 can't participate
 
+try {
+    const start = document.getElementById("start");
+    start.addEventListener("click", (evt) => {
+        evt.preventDefault();
+        modalBack.style.display = "flex";
+    })
+} catch (error) {
+    console.log(error);
+}
+
+try {
+    const begin = document.getElementById("begin");
+    begin.addEventListener("click", evt => {
+        const names = {
+            player1: "0",
+            player1Name: player1Name.value + " 's Score:",
+            player2: "0",
+            player2Name: player2Name.value + " 's Score:",
+            turn: turnSwitch
+        }
+        begin.href += ("?" + new URLSearchParams(names))
+    })
+} catch (error) {
+    console.log(error);
+}
 
 try {
     nextRound.addEventListener("click", evt => {
         const scores = {
             player1: player1Score.textContent,
+            player1Name: player1Name.textContent,
             player2: player2Score.textContent,
-            turn: playerTurn[0].textContent
+            player2Name: player2Name.textContent,
+            turn: turnSwitch
         }
         nextRound.href += ("?" + new URLSearchParams(scores));
         console.log(nextRound)
