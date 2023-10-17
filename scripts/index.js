@@ -1,4 +1,4 @@
-// Do not change the import statement
+// ? Do not change the import statement
 import placeholderQuestions from "./placeholder-questions.js";
 console.log({ placeholderQuestions });
 const category1 = document.getElementById("category1");
@@ -7,13 +7,13 @@ const category3 = document.getElementById("category3");
 const category4 = document.getElementById("category4");
 const category5 = document.getElementById("category5");
 const category6 = document.getElementById("category6");
-// set <p> for category and adds them to an array
-var categoryLable1 = undefined;
-var categoryLable2 = undefined;
-var categoryLable3 = undefined;
-var categoryLable4 = undefined;
-var categoryLable5 = undefined;
-var categoryLable6 = undefined;
+// ? set <p> for category and adds them to an array
+let categoryLable1 = undefined;
+let categoryLable2 = undefined;
+let categoryLable3 = undefined;
+let categoryLable4 = undefined;
+let categoryLable5 = undefined;
+let categoryLable6 = undefined;
 try{
     categoryLable1 = category1.firstElementChild;
     categoryLable2 = category2.firstElementChild;
@@ -39,21 +39,22 @@ const pass = document.getElementById("pass");
 
 const playerTurn = Array.from(document.getElementsByTagName("h2"));
 
-var currentQuestionIndex;
-var currentQuestion;
-var guessPass;
+let currentQuestionIndex;
+let currentQuestion;
+let guessPass;
 
 const player1Score = document.getElementById("player1score");
 const player2Score = document.getElementById("player2score");
 const player1Name = document.querySelector("#player1");
 const player2Name = document.querySelector("#player2");
-var urlParams = new URLSearchParams(window.location.search);
+let urlParams = new URLSearchParams(window.location.search);
 
-var turnSwitch = 0;
+let turnSwitch = 0;
+// ? gets info from URLparams and sets the appropriate value
 if (urlParams.get("player1")){
     player1Score.textContent = urlParams.get("player1");
     player2Score.textContent = urlParams.get("player2");
-    turnSwitch = urlParams.get("turn");
+    turnSwitch = Number(urlParams.get("turn"));
     player1Name.textContent = urlParams.get("player1Name");
     player2Name.textContent = urlParams.get("player2Name");
 }
@@ -63,23 +64,21 @@ const bet = document.getElementById("bet");
 
 const message = document.getElementById("message");
 
-var player1final = true;
-var player2final = true;
+let player1final = true;
+let player2final = true;
 
 const nextRound = document.getElementById("next-round");
 const round = document.getElementsByClassName("round");
-var questionsClicked = 0;
+let questionsClicked = 0;
 
-// gets info from URLparams and sets the appropriate value
-
-// creates category variable and grabs each cotegory at a step of 10 (10 questions per category)
+// ? creates category variable and grabs each cotegory at a step of 10 (10 questions per category)
 const categorys = [];
 for (let i = 0; i < 60; i += 10) {
     categorys.push(placeholderQuestions[i].category);
 }
 
-// assaigns the textContent for all category <p> to be the name of the corresponding category
-// try catch for title ond final jeopary as they have no categorys and will throw TypeErrors
+// ? assaigns the textContent for all category <p> to be the name of the corresponding category
+
 try {
     for (let i = 0; i < 6; i++) {
         categoryLables[i].textContent = categorys[i];
@@ -89,17 +88,17 @@ try {
 }
 
 
-// returns the question for the clicked choice
+// ? returns the question for the clicked choice
 function dataSiftQuestion(index) {
         return(placeholderQuestions[index].question)
 }
-// returns the answer for the clicked choice
+// ? returns the answer for the clicked choice
 function dataSiftAnswer(index) {
 
         return(placeholderQuestions[index].answer)
 }
 
-// crates an array of all questions, disables their defualt, displays a modal with the question and form.
+// ? crates an array of all questions, disables their defualt, displays a modal with the question and form.
 try {
     questions.forEach(question => {
         question.addEventListener("click", evt => {
@@ -122,6 +121,7 @@ try {
     console.log("No questions" + err)
 }
 
+// ? Sets player turn when first loading page
 try {
     playerTurn.forEach(turn => {
         if(turnSwitch) {
@@ -134,6 +134,7 @@ try {
     console.log(error);
 }
 
+// ? Function to Change turn
 function changeTurn() {
     playerTurn.forEach(turn => {
         if(!turnSwitch) {
@@ -149,10 +150,12 @@ function changeTurn() {
     }
 }
 
+// ? Function to remove the modal
 function modalNone () {
     modalBack.style.display = "none";
 }
 
+// ? Function to check if players can procced to the next round (points above 15000 (round 1) or 30000 (round 2), or board cleared)
 function nextTrue(){
     if (round[0].textContent == "Round One") {
         if (Number(player1Score.textContent) >= 15000 || Number(player2Score.textContent) >= 15000 || questionsClicked == 30) {
@@ -166,7 +169,7 @@ function nextTrue(){
 }
 
 try {
-    // read userInput and compare aganst answer if true award current player points if false revome points and pass turn.
+    // ? read userInput and compare aganst answer if true award current player points if false revome points and pass turn.
     guess.addEventListener("click", evt => {
         evt.preventDefault();
         if (userInput.value.toLowerCase() == dataSiftAnswer(currentQuestionIndex).toLowerCase()) {
@@ -198,7 +201,7 @@ try {
         userInput.value = "";
     })
 
-    // pass player turn if both pass give answer and skip question
+    // ? pass player turn if both pass give answer and skip question
     pass.addEventListener("click", evt => {
         evt.preventDefault();
         if (guessPass < 1) {
@@ -218,8 +221,7 @@ try {
     console.log("No form " + err)
 }
 
-// ! question.parentElement.firstElementChild will give category name + question.id gives id(1,2,3,4,5) (category + id)
-
+// ? Function that displays the Game Over modal
 function gameOver() {
     modalBack.style.display = "flex";
     modal.style.width = "50%";
@@ -274,9 +276,9 @@ try{
                 message.textContent = "Invalid bet amount";
                 setTimeout(modalNone, 2000);
             } else if (finalAnswer.value.toLowerCase() == dataSiftAnswer(60).toLowerCase()) {
-                player1Score.textContent += Number(betInput.value);
+                player1Score.textContent = Number(player1Score.textContent) + Number(betInput.value);
             } else {
-                player1Score.textContent -= Number(betInput.value);
+                player1Score.textContent = Number(player1Score.textContent) - Number(betInput.value);
             }
             if (player2final == true && guessPass < 1){
                 changeTurn();
@@ -291,9 +293,9 @@ try{
                 message.textContent = "Invalid bet amount";
                 setTimeout(modalNone, 2000);
             } else if (finalAnswer.value.toLowerCase() == dataSiftAnswer(60).toLowerCase()) {
-                player2Score.textContent += Number(betInput.value);
+                player2Score.textContent = Number(player2Score.textContent) + Number(betInput.value);
             } else {
-                player2Score.textContent -= Number(betInput.value);
+                player2Score.textContent = Number(player2Score.textContent) - Number(betInput.value);
             }
             if (player1final == true && guessPass < 1) {
                 changeTurn();
@@ -306,7 +308,6 @@ try{
 } catch(err) {
     console.log("Not the final jeopardy " + err);
 }
-// TODO FinalJeopardy constenstants with less than $1 can't participate
 
 try {
     const start = document.getElementById("start");
