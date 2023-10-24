@@ -256,6 +256,8 @@ try{
         }
     }
     finalQuestion.textContent = placeholderQuestions[60].question;
+    finalQuestion.addEventListener("click", evt =>
+    evt.preventDefault());
     finalAnswer.addEventListener("keyup", evt => {
         if(betInput.value && finalAnswer.value) {
             bet.disabled = false;
