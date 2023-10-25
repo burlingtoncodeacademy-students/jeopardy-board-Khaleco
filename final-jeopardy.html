@@ -4,11 +4,51 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
     <title>Final Jeopardy</title>
   </head>
-  <body>
-    <h1>Final Jeopardy</h1>
+  <body id="fin-body">
+    <h1 id="final-title">Final Jeopardy</h1>
+
+    <h2 id="final-title">Player 1's Turn</h2>
+
+    <div class="board">
+      <div class="category">
+        <p id="final">Final Question</p>
+        <a href="" id="final-q">Final Question</a>
+      </div>
+    </div>
+
+    <div id="modalBack">
+      <div id="modal">
+        <h3 id="message"></h3>
+      </div>
+    </div>
+    
+
+    <div id="score">
+      <div class="score">
+        <article id="player1">Player 1 Score:</article>
+        <article id="player1score">0</article>
+      </div>
+  
+      <div class="score">
+        <article id="player2">Player 2 Score:</article> 
+        <article id="player2score">0</article>
+      </div>
+    </div>
+
+    <form id="fin-form">
+      <input type="text" id="bet-input" placeholder="Point Bet Amount">
+      <input type="password" id="fin-answer" placeholder="Final Answer">
+    </form>
+
+    <button id="bet" form="fin-form" disabled class="fin-botton" type:="submit">Bet</button>
+
+    <footer>Footer Site Information</footer>
+
     <!-- Do not change the script source. Allows import/export to work. -->
     <script src="./scripts/index.js" type="module"></script>
+
   </body>
 </html>

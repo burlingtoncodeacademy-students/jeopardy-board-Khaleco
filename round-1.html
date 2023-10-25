@@ -4,10 +4,95 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
     <title>Jeopardy</title>
   </head>
   <body>
-    <h1>Round One</h1>
+    <h1 class="round">Round One</h1>
+
+    <h2>Player 1's Turn</h2>
+    <div class="board">
+      <div class="category" id="category1">
+        <p>Category</p>
+        <button href="" class="question" id="0">100</button>
+        <button href="" class="question" id="1">200</button>
+        <button href="" class="question" id="2">300</button>
+        <button href="" class="question" id="3">400</button>
+        <button href="" class="question" id="4">500</button>
+      </div>
+      <div class="category" id="category2">
+        <p>Category</p>
+        <button href="" class="question" id="0">100</button>
+        <button href="" class="question" id="1">200</button>
+        <button href="" class="question" id="2">300</button>
+        <button href="" class="question" id="3">400</button>
+        <button href="" class="question" id="4">500</button>
+      </div>
+      <div class="category" id="category3">
+        <p>Category</p>
+        <button href="" class="question" id="0">100</button>
+        <button href="" class="question" id="1">200</button>
+        <button href="" class="question" id="2">300</button>
+        <button href="" class="question" id="3">400</button>
+        <button href="" class="question" id="4">500</button>
+      </div>
+      <div class="category" id="category4">
+        <p>Category</p>
+        <button href="" class="question" id="0">100</button>
+        <button href="" class="question" id="1">200</button>
+        <button href="" class="question" id="2">300</button>
+        <button href="" class="question" id="3">400</button>
+        <button href="" class="question" id="4">500</button>
+      </div>
+      <div class="category" id="category5">
+        <p>Category</p>
+        <button href="" class="question" id="0">100</button>
+        <button href="" class="question" id="1">200</button>
+        <button href="" class="question" id="2">300</button>
+        <button href="" class="question" id="3">400</button>
+        <button href="" class="question" id="4">500</button>
+      </div>
+      <div class="category" id="category6">
+        <p>Category</p>
+        <button href="" class="question" id="0">100</button>
+        <button href="" class="question" id="1">200</button>
+        <button href="" class="question" id="2">300</button>
+        <button href="" class="question" id="3">400</button>
+        <button href="" class="question" id="4">500</button>
+      </div>
+      
+    </div>
+    <div id="modalBack">
+      
+      <div id="modal">
+        <h2>Player 1's Turn</h2>
+        <p id="modalQuestion"></p>
+        <form id="guess-container">
+          <input type="text" id="guessInput" placeholder="What is...">
+          <button form="guess-container" type="submit" class="guess" id="guess">Guess</button>
+          <button form="guess-container" type="submit" class="guess" id="pass">Pass</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="score">
+      <div class="score">
+        <article id="player1">Player 1 Score:</article>
+        <article id="player1score">0</article>
+      </div>
+
+      <div class="score">
+        <article id="player2">Player 2 Score:</article> 
+        <article id="player2score">0</article>
+      </div>
+    </div>
+
+    <div id="nextDiv">
+      <a href="./round-2.html" id="next-round">Next Round</a>
+    </div>
+
+    <footer>Footer Site Information</footer>
+
     <!-- Do not change the script source. Allows import/export to work. -->
     <script src="./scripts/index.js" type="module"></script>
   </body>
